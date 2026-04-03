@@ -1,0 +1,22 @@
+# Data
+data/
+scraped/
+chroma_db/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Kaggle
+kaggle.json
+
+# API Keys (ถ้ามีไฟล์ .env)
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# Miniconda/Virtualenv
+*.egg-info/

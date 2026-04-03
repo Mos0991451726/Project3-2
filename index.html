@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แชทบอททองคำ</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600&family=Cinzel:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="ornament ornament-tl"></div>
+    <div class="ornament ornament-br"></div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-area">
+                <div class="logo-icon">♛</div>
+                <div class="logo-text">
+                    แชทบอท<br>ทองคำ
+                    <span>Golden AI · v2.0</span>
+                </div>
+            </div>
+            <button class="new-chat-btn" onclick="newChat()">
+                <svg viewBox="0 0 24 24" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                สนทนาใหม่
+            </button>
+        </div>
+
+        <div class="sidebar-section">
+            <div class="sidebar-section-label">วันนี้</div>
+        </div>
+        <div class="chat-list">
+            <div class="chat-item active">♛ สอบถามเกี่ยวกับทองคำ</div>
+            <div class="chat-item">วิเคราะห์ราคาตลาด</div>
+            <div class="chat-item">แผนการลงทุนระยะยาว</div>
+            <div class="sidebar-section" style="padding-top:20px">
+                <div class="sidebar-section-label">สัปดาห์ที่แล้ว</div>
+            </div>
+            <div class="chat-item">เปรียบเทียบกองทุนทอง</div>
+            <div class="chat-item">ข้อดีของการถือครองทอง</div>
+            <div class="chat-item">ทองคำแท่ง vs ทองรูปพรรณ</div>
+            <div class="chat-item">ภาษีจากการขายทองคำ</div>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="user-profile">
+                <div class="avatar">ก</div>
+                <div class="user-info">
+                    <div class="user-name">คุณกมล</div>
+                    <div class="user-plan">Gold Member ✦</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+        <!-- TOPBAR -->
+        <div class="topbar">
+            <div class="model-selector">
+                <div class="model-dot"></div>
+                GoldBot Ultra 2.0
+                <svg viewBox="0 0 24 24" stroke-width="2" style="width:12px;height:12px;stroke:currentColor;fill:none;">
+                    <polyline points="6 9 12 15 18 9" />
+                </svg>
+            </div>
+            <div class="topbar-actions">
+                <button class="icon-btn" title="แชร์">
+                    <svg viewBox="0 0 24 24" stroke-width="2">
+                        <circle cx="18" cy="5" r="3" />
+                        <circle cx="6" cy="12" r="3" />
+                        <circle cx="18" cy="19" r="3" />
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+                    </svg>
+                </button>
+                <button class="icon-btn" title="ตั้งค่า">
+                    <svg viewBox="0 0 24 24" stroke-width="2">
+                        <circle cx="12" cy="12" r="3" />
+                        <path
+                            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- CHAT AREA -->
+        <div class="chat-area" id="chatArea">
+            <div class="chat-container">
+
+                <!-- WELCOME -->
+                <div class="welcome" id="welcomeScreen">
+                    <div class="welcome-icon">♛</div>
+                    <h1>แชทบอททองคำ</h1>
+                    <p>ผู้ช่วยอัจฉริยะด้านการลงทุนทองคำ<br>พร้อมตอบทุกคำถามด้วยความแม่นยำระดับทองคำ</p>
+
+                    <div class="gold-divider"><span>เริ่มต้นด้วย</span></div>
+
+                    <div class="suggestion-grid">
+                        <div class="suggestion-card" onclick="sendSuggestion('ราคาทองคำวันนี้เป็นเท่าไหร่')">
+                            <div class="suggestion-icon">📈</div>
+                            <div class="suggestion-title">ราคาทองวันนี้</div>
+                            <div class="suggestion-desc">ติดตามราคาทองคำล่าสุด</div>
+                        </div>
+                        <div class="suggestion-card" onclick="sendSuggestion('ควรลงทุนทองคำหรือหุ้นดีกว่า')">
+                            <div class="suggestion-icon">⚖️</div>
+                            <div class="suggestion-title">เปรียบเทียบการลงทุน</div>
+                            <div class="suggestion-desc">ทองคำ vs สินทรัพย์อื่น</div>
+                        </div>
+                        <div class="suggestion-card" onclick="sendSuggestion('วิธีเริ่มต้นลงทุนทองคำสำหรับมือใหม่')">
+                            <div class="suggestion-icon">🏆</div>
+                            <div class="suggestion-title">มือใหม่เริ่มยังไง</div>
+                            <div class="suggestion-desc">คำแนะนำสำหรับผู้เริ่มต้น</div>
+                        </div>
+                        <div class="suggestion-card" onclick="sendSuggestion('แนวโน้มราคาทองในอีก 6 เดือนข้างหน้า')">
+                            <div class="suggestion-icon">🔮</div>
+                            <div class="suggestion-title">แนวโน้มราคาทอง</div>
+                            <div class="suggestion-desc">วิเคราะห์อนาคตตลาดทอง</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- INPUT AREA -->
+        <div class="input-area">
+            <div class="input-wrapper">
+                <div class="input-box">
+                    <div class="input-tools">
+                        <button class="tool-btn" title="แนบไฟล์">
+                            <svg viewBox="0 0 24 24" stroke-width="2">
+                                <path
+                                    d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" />
+                            </svg>
+                        </button>
+                        <button class="tool-btn" title="ค้นหาเว็บ">
+                            <svg viewBox="0 0 24 24" stroke-width="2">
+                                <circle cx="11" cy="11" r="8" />
+                                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                            </svg>
+                        </button>
+                    </div>
+                    <textarea id="messageInput" placeholder="ถามเรื่องทองคำได้เลย..." rows="1"
+                        onkeydown="handleKey(event)" oninput="autoResize(this); toggleSendBtn()"></textarea>
+                    <button class="send-btn" id="sendBtn" onclick="sendMessage()" disabled>
+                        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13" />
+                            <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="input-footer">แชทบอททองคำ อาจเกิดข้อผิดพลาดได้ โปรดตรวจสอบข้อมูลสำคัญ ✦</div>
+            </div>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>

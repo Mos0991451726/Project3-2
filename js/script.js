@@ -133,3 +133,133 @@
     toggleSendBtn();
     document.querySelectorAll('.chat-item').forEach(i => i.classList.remove('active'));
   }
+
+// ตั้งค่า
+  function openSettings() {
+  document.getElementById("settingsModal").style.display = "flex";
+
+  // โหลดค่าที่เคยบันทึก
+  document.getElementById("setName").value = localStorage.getItem("name") || "";
+  document.getElementById("theme").value = localStorage.getItem("theme") || "dark";
+  document.getElementById("notify").checked = localStorage.getItem("notify") === "true";
+}
+
+function closeSettings() {
+  document.getElementById("settingsModal").style.display = "none";
+}
+
+function saveSettings() {
+  const name = document.getElementById("setName").value;
+  const theme = document.getElementById("theme").value;
+  const notify = document.getElementById("notify").checked;
+
+  localStorage.setItem("name", name);
+  localStorage.setItem("theme", theme);
+  localStorage.setItem("notify", notify);
+
+  // เปลี่ยนชื่อใน sidebar
+  document.querySelector(".user-name").innerText = name || "ผู้ใช้";
+
+  // เปลี่ยน theme (ตัวอย่างง่าย)
+  if (theme === "light") {
+    document.body.style.background = "#ffffff";
+    document.body.style.color = "#000";
+  } else {
+    document.body.style.background = "";
+    document.body.style.color = "";
+  }
+
+  alert("บันทึกสำเร็จ");
+  closeSettings();
+}
+
+// แชร์
+function openShare() {
+  document.getElementById("shareModal").style.display = "flex";
+
+  // เอาข้อความแชทมาใส่
+  document.getElementById("shareText").value = getChatText();
+}
+
+function closeShare() {
+  document.getElementById("shareModal").style.display = "none";
+}
+
+function getChatText() {
+  const messages = document.querySelectorAll(".msg-bubble");
+  let text = "";
+
+  messages.forEach(m => {
+    text += m.innerText + "\n\n";
+  });
+
+  return text;
+}
+
+function copyShare() {
+  const text = document.getElementById("shareText").value;
+  navigator.clipboard.writeText(text);
+  alert("คัดลอกแล้ว ✦");
+}
+
+function shareTo(platform) {
+  const text = encodeURIComponent(getChatText());
+
+  let url = "";
+
+  if (platform === "x") {
+    url = `https://twitter.com/intent/tweet?text=${text}`;
+  }
+  if (platform === "linkedin") {
+    url = `https://www.linkedin.com/sharing/share-offsite/?url=${window.location.href}`;
+  }
+  if (platform === "reddit") {
+    url = `https://www.reddit.com/submit?title=Chat&text=${text}`;
+  }
+
+  window.open(url, "_blank");
+}
+
+//login
+function goLogin() {
+  window.location.href = "login.html";
+}
+
+window.onload = function () {
+  const user = localStorage.getItem("username");
+
+  if (user) {
+    document.querySelector(".user-name").innerText = user;
+    document.querySelector(".user-plan").innerText = "Gold Member ✦";
+    document.querySelector(".avatar").innerText = user.charAt(0);
+  }
+};
+
+// ส่วนเมนูมุมขวาล่างโปรไฟล์
+function toggleUserMenu() {
+  const menu = document.getElementById("userMenu");
+  menu.style.display = menu.style.display === "block" ? "none" : "block";
+}
+
+function logout() {
+  localStorage.removeItem("username");
+  alert("ออกจากระบบแล้ว");
+
+  // กลับไป login
+  window.location.href = "login.html";
+}
+
+function switchAccount() {
+  // ล้าง user แล้วไป login ใหม่
+  localStorage.removeItem("username");
+  window.location.href = "login.html";
+}
+
+document.addEventListener("click", function(e) {
+  const menu = document.getElementById("userMenu");
+  const profile = document.querySelector(".user-profile");
+
+  if (!profile.contains(e.target)) {
+    menu.style.display = "none";
+  }
+});

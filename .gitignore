@@ -1,0 +1,46 @@
+# ─── Data & Model ───
+data/
+scraped/
+chroma_db/
+
+# ─── Python ───
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+.eggs/
+dist/
+build/
+*.so
+
+# ─── Virtual Environment ───
+venv/
+env/
+.venv/
+.env/
+
+# ─── Secrets ───
+.env
+*.env
+kaggle.json
+
+# ─── IDE ───
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ─── React / Node ───
+node_modules/
+build/
+.npm/
+*.log
+npm-debug.log*
+
+# ─── Logs ───
+*.log
+logs/

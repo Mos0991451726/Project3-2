@@ -18,7 +18,7 @@ BATCH_SIZE = 100
 
 chroma_client = chromadb.PersistentClient(path=CHROMA_PATH)
 
-client = ollama.Client(host="http://26.46.48.83:11434")
+client = ollama.Client(host="http://localhost:11434")
 
 def get_embedding(texts: list) -> list:
     embeddings = []

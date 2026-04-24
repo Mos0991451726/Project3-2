@@ -61,7 +61,9 @@ def ask(query: str) -> str:
 - ห้ามทำนายราคาทองในอนาคต
 - ห้ามแนะนำให้ซื้อหรือขายทองโดยตรง
 - อธิบายให้เข้าใจง่าย
-
+- ห้ามใช้ Markdown เช่น **, ##, ||, --- เด็ดขาด
+- ตอบเป็นข้อความธรรมดา จัดย่อหน้าให้อ่านง่าย
+- แบ่งหัวข้อด้วยการขึ้นบรรทัดใหม่และใช้ หมายเลข 1. 2. 3. แทน
 Context:
 {context}
 
@@ -71,7 +73,7 @@ Context:
 
     try:
         response = ollama_client.generate(
-            model="gpt-oss:20b",
+            model="llama3.2:latest",
             prompt=prompt,
         )
         return response["response"]

@@ -1,5 +1,5 @@
 import pandas as pd
-from downloader import DOWNLOAD_PATH
+from download import DOWNLOAD_PATH
 
 def convert_analysis():
     documents = []

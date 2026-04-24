@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     CHROMA_PATH: str = "./chroma_db"
     CHROMA_COLLECTION: str = "gold_knowledge"
     FRONTEND_URL: str = "http://localhost:3000"
+    GOLD_API_KEY: str = ""
 
     class Config:
         env_file = ".env"

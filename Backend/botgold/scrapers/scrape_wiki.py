@@ -7,6 +7,15 @@ OUTPUT_PATH = "./scraped"
 URLS = [
     "https://en.wikipedia.org/wiki/Gold_as_an_investment",
     "https://en.wikipedia.org/wiki/Gold",
+    "https://en.wikipedia.org/wiki/CBOE_Volatility_Index",
+    "https://en.wikipedia.org/wiki/U.S._Dollar_Index",
+    "https://en.wikipedia.org/wiki/Federal_funds_rate",
+    "https://en.wikipedia.org/wiki/Inflation",
+    "https://en.wikipedia.org/wiki/United_States_Treasury_security",
+    "https://en.wikipedia.org/wiki/Crude_oil",
+    "https://en.wikipedia.org/wiki/Gold_standard",
+    "https://en.wikipedia.org/wiki/Gold_reserve",
+    "https://en.wikipedia.org/wiki/Gold_exchange-traded_product",
 ]
 
 def scrape_wiki(url: str) -> str:

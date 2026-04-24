@@ -8,9 +8,25 @@ import chatbot
 
 router = APIRouter(prefix="/chat", tags=["Chat"])
 
+HISTORY_LIMIT = 5  # จำบทสนทนาย้อนหลังกี่ข้อความ
+
 def fmt_id(doc: dict) -> dict:
     doc["id"] = str(doc.pop("_id"))
     return doc
+
+async def get_history(db, room_id: ObjectId, limit: int = HISTORY_LIMIT) -> list:
+    """ดึง messages ย้อนหลังสำหรับส่งเป็น history"""
+    recent = await db.messages.find(
+        {"room_id": room_id},
+        sort=[("created_at", -1)]
+    ).limit(limit).to_list(limit)
+
+    # reverse กลับให้เรียงจากเก่า → ใหม่
+    history = [
+        {"role": m["role"], "content": m["content"]}
+        for m in reversed(recent)
+    ]
+    return history
 
 # ─── Rooms ───
 
@@ -23,7 +39,6 @@ async def list_rooms(user=Depends(get_current_user)):
     ).limit(50)
     rooms = []
     async for r in cursor:
-        # นับจำนวน messages
         count = await db.messages.count_documents({"room_id": r["_id"]})
         rooms.append({
             "id":               str(r["_id"]),
@@ -117,8 +132,11 @@ async def send_message(room_id: str, body: SendMessageRequest, user=Depends(get_
             {"$set": {"title": short_title}}
         )
 
-    # ─── เรียก RAG Bot ───
-    bot_answer = chatbot.ask(body.content)
+    # ─── ดึง history 5 messages ล่าสุด ───
+    history = await get_history(db, ObjectId(room_id))
+
+    # ─── เรียก RAG Bot พร้อม history ───
+    bot_answer = chatbot.ask(body.content, history=history)
 
     # บันทึก bot message
     bot_now = datetime.utcnow()
@@ -154,7 +172,7 @@ async def send_message(room_id: str, body: SendMessageRequest, user=Depends(get_
     )
 
 
-# ─── Quick Chat (ไม่ต้องสร้าง room ก่อน) ───
+# ─── Quick Chat ───
 
 @router.post("/quick")
 async def quick_chat(body: SendMessageRequest, user=Depends(get_current_user)):
@@ -174,7 +192,7 @@ async def quick_chat(body: SendMessageRequest, user=Depends(get_current_user)):
     room_result = await db.chat_rooms.insert_one(room_doc)
     room_id = str(room_result.inserted_id)
 
-    # ส่งข้อความ
+    # ส่งข้อความแรก (ยังไม่มี history)
     user_msg = {
         "room_id":    room_result.inserted_id,
         "user_id":    user["_id"],
@@ -184,8 +202,10 @@ async def quick_chat(body: SendMessageRequest, user=Depends(get_current_user)):
     }
     user_result = await db.messages.insert_one(user_msg)
 
-    bot_answer = chatbot.ask(body.content)
+    # ห้องใหม่ ยังไม่มี history
+    bot_answer = chatbot.ask(body.content, history=[])
     bot_now = datetime.utcnow()
+
     bot_msg = {
         "room_id":    room_result.inserted_id,
         "user_id":    user["_id"],
